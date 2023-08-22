@@ -11,43 +11,56 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <junit-version>5.10.0</junit-version>
-        <selenium-version>4.11.0</selenium-version>
-        <web-driver-version>5.4.1</web-driver-version>
-        <cucumber-java-version>7.13.0</cucumber-java-version>
+        <junit.version>4.13.2</junit.version>
+        <selenium.version>4.11.0</selenium.version>
+        <cucumber.version>7.13.0</cucumber.version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>${junit-version}</version>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>${selenium-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.bonigarcia</groupId>
-            <artifactId>webdrivermanager</artifactId>
-            <version>${web-driver-version}</version>
+            <version>${selenium.version}</version>
         </dependency>
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
-            <version>${cucumber-java-version}</version>
+            <version>${cucumber.version}</version>
         </dependency>
         <dependency>
             <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-junit-platform-engine</artifactId>
-            <version>${cucumber-java-version}</version>
+            <artifactId>cucumber-junit</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.4.11</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
     <build>
         <plugins>
+            <plugin>
+                <groupId>com.trivago.rta</groupId>
+                <artifactId>cluecumber-maven</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <sourceJsonReportDirectory>${project.build.directory}/cucumber-report</sourceJsonReportDirectory>
+                    <generatedHtmlReportDirectory>${project.build.directory}/generated-report</generatedHtmlReportDirectory>
+                    <expandBeforeAfterHooks>true</expandBeforeAfterHooks>
+                    <expandStepHooks>true</expandStepHooks>
+                    <expandDocStrings>true</expandDocStrings>
+                    <expandAttachments>true</expandAttachments>
+                    <expandDocStrings>true</expandDocStrings>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -64,7 +77,7 @@
                 <version>3.1.2</version>
                 <configuration>
                     <parallel>methods</parallel>
-                    <threadCount>1</threadCount>
+                    <threadCount>5</threadCount>
                     <testFailureIgnore>true</testFailureIgnore>
                 </configuration>
             </plugin>
